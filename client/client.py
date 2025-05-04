@@ -43,6 +43,7 @@ def send_messages(sock):
         stop_event.set()
 
 def main():
+    print('Connecting...\n')
     try:
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         sock.settimeout(1.0)
