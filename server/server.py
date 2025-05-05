@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import logging
 import os
 import re
@@ -16,13 +18,24 @@ server_socket = None
 shutting_down = False
 shutdown_requested = False
 
-logging.basicConfig(
-    filename='server.log',
-    level=logging.INFO,
-    format='%(asctime)s - %(message)s'
-)
-
+DEFAULT_LOG_PATH = '/var/log/chatserver.log'
 USERNAME_REGEX = re.compile(r'^[A-Za-z0-9_]{3,20}$')
+
+
+def setup_logger(log_path=DEFAULT_LOG_PATH):
+    try:
+        logging.basicConfig(
+            filename=log_path,
+            level=logging.INFO,
+            format='%(asctime)s - %(message)s'
+        )
+    except PermissionError:
+        logging.basicConfig(
+            stream=sys.stdout,
+            level=logging.INFO,
+            format='%(asctime)s - %(message)s'
+        )
+        logging.warning(f"Couldn't write to {log_path}, using stdout instead.")
 
 
 def is_valid_username(username):
@@ -120,6 +133,7 @@ def shutdown_server(signal_received=None, frame=None):
 
 
 def main():
+    setup_logger()
     global server_socket
 
     signal.signal(signal.SIGINT, shutdown_server)
