@@ -108,7 +108,7 @@ def shutdown_server(signal_received=None, frame=None):
         print('\nForce quitting...')
         os._exit(1)
 
-    print('\nGracefully shutting down... (press Ctrl+C again to force)')
+    print('\nGracefully shutting down...')
     shutdown_requested = True
     shutting_down = True
 
