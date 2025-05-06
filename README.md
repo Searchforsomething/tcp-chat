@@ -4,6 +4,26 @@
 
 ## Установка
 
+### Способ 1:
+
+Установка с помощью скрипта `build.sh` 
+
+Нам нужно сделать файл исполняемым:
+
+```bash
+chmod +x build.sh
+```
+
+Далее запускаем скрипт
+
+```bash
+sudo ./build.sh
+```
+
+### Способ 2:
+
+Всё то же самое, что происходит в скрипте, только руками.
+
 Клонируем репозиторий
 
 ```bash
@@ -37,8 +57,13 @@ rpmdev-setuptree
 Упаковываем `chatclient` и `chatserver` в архивы и помещаем их в `SOURCES`
 
 ```bash
-tar czf ~/rpmbuild/SOURCES/chatserver-1.0.tar.gz server/chatserver/
-tar czf ~/rpmbuild/SOURCES/chatclient-1.0.tar.gz client/chatclient/
+mkdir -p /tmp/chatserver-1.0
+cp -r server/chatserver/* /tmp/chatserver-1.0/
+tar czf ~/rpmbuild/SOURCES/chatserver-1.0.tar.gz -C /tmp chatserver-1.0
+
+mkdir -p /tmp/chatclient-1.0
+cp -r client/chatclient/* /tmp/chatclient-1.0/
+tar czf ~/rpmbuild/SOURCES/chatclient-1.0.tar.gz -C /tmp chatclient-1.0
 ```
 
 Копируем `.spec` файлы в `SPECS`
