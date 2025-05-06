@@ -18,7 +18,7 @@ server_socket = None
 shutting_down = False
 shutdown_requested = False
 
-DEFAULT_LOG_PATH = '/var/log/chatserver.log'
+DEFAULT_LOG_PATH = '/var/log/chatserver/server.log'
 USERNAME_REGEX = re.compile(r'^[A-Za-z0-9_]{3,20}$')
 
 
